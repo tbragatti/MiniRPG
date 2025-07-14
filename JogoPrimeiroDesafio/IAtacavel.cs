@@ -10,15 +10,11 @@ namespace JogoPrimeiroDesafio
     public interface IAtacavel
     {
 
-         virtual int Atacar(Heroi)
-        {
-            int dano = Ataque - oponente.Defesa;
-            if (dano < 0) dano = 0; 
-            oponente.vida -= dano;
-
-            return dano;
+        
+        
+            
 
 
         }
     }
-}
+
