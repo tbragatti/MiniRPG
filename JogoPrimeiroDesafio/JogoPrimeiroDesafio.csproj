@@ -46,6 +46,7 @@
     <Compile Include="Classes\Bárbaro.cs" />
     <Compile Include="Classes\Ladino.cs" />
     <Compile Include="Classes\Mago.cs" />
+    <Compile Include="IAtacavel.cs" />
     <Compile Include="Personagem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

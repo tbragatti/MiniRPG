@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace JogoPrimeiroDesafio.Classes
 {
-    internal class Mago:Heroi
+    internal class Mago:Heroi,IAtacavel
     {
         public Mago(string nome, int vida, int ataque, int defesa) : base(nome, vida, ataque, defesa)
         {
-            
+           
         }
 
         

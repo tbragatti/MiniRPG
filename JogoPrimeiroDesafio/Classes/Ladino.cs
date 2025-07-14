@@ -7,16 +7,11 @@ using System.Threading.Tasks;
 
 namespace JogoPrimeiroDesafio.Classes
 {
-    internal class Ladino:Heroi
+    internal class Ladino : Heroi, IAtacavel
     {
         public Ladino(string nome, int vida, int ataque, int defesa) : base(nome, vida, ataque, defesa)
         {
-
+            
         }
-        string nome = "Meneros";
-        int vida = 60;
-        int ataque = 15;
-        int defesa = 5;
-
     }
 }

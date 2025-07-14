@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JogoPrimeiroDesafio.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JogoPrimeiroDesafio.Personagem
 {
-    internal class Heroi
+    public class Heroi
 
     {
         public string Nome { get; set; }
@@ -23,19 +24,19 @@ namespace JogoPrimeiroDesafio.Personagem
         }
 
 
-
-        public virtual void Atacar (Heroi oponente)
+        public int Atacar(Heroi oponente)
         {
-
-
             int dano = Ataque - oponente.Defesa;
-            if (dano < 0) dano = 0; // 
+            if (dano < 0) dano = 0; 
             oponente.Vida -= dano;
-            Console.WriteLine($"{Nome} ataca {oponente.Nome} causando {dano} de dano.");
-            Console.WriteLine($"{oponente.Nome} agora tem {oponente.Vida} de vida.");
+            return dano;
         }
 
-        
+
+
+
+
+
 
 
 
