@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace JogoPrimeiroDesafio.Personagem
 {
-    public class Heroi
+    public abstract class Heroi
 
     {
         public string Nome { get; set; }
@@ -23,26 +23,38 @@ namespace JogoPrimeiroDesafio.Personagem
             Ataque = ataque;
             Defesa = defesa;
         }
-
-
-           public virtual int Atacar(Heroi oponente)
+        public virtual int Atacar(Heroi alvo)
         {
-            int dano = Ataque - oponente.Defesa;
-            if (dano >0)
+            int dano = Ataque - alvo.Defesa;
+
+            if (dano > 0)
             {
-                oponente.Vida -= dano;
-                Console.WriteLine($"{Nome} causou {dano} de dano ao {oponente.Nome}");
-                return dano;
-            } else
-            { Console.WriteLine($"{Nome} não conseguiu causar dano ao {oponente.Nome}");
                 return dano;
             }
+            else
+            {
+                return 0;
+            }
+        }
 
+        public void Receberdano(int dano)
+        {
+            Vida -= dano;
+            if (Vida == 0)
+            {
+                Console.WriteLine($"{Nome} foi derrotado!");
 
+            }
+           
             
         }
 
+        public void ExibirStatus()
+        {
+            Console.WriteLine($"Nome: {Nome}, Vida: {Vida}, Ataque: {Ataque}, Defesa: {Defesa}");
+        }
 
+        
     }
 
 
@@ -57,7 +69,26 @@ namespace JogoPrimeiroDesafio.Personagem
 
 
 
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
