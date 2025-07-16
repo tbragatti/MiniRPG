@@ -16,18 +16,21 @@ namespace JogoPrimeiroDesafio.Classes
             Ataque = ataque;
             Defesa = defesa;
         }
-        public override int Atacar(Heroi alvo)
+        public override int Atacar(Heroi inimigo)
         {   int totalDeGelo = 0;
+            int dano = 15 - inimigo.Defesa;
+            
             if (totalDeGelo == 3)
             {
-                alvo.Defesa = 0;
-                Console.WriteLine($"{alvo.Nome} está congelado e não pode se defender!");
+                inimigo.Defesa = 0;
+                Console.WriteLine($"{inimigo.Nome} está congelado e não pode se defender! Sua defesa foi zerada!");
             }
-            int dano = 15 - alvo.Defesa;
+            
 
             if (dano > 0)
-            {
-                totalDeGelo++;
+            {   
+
+                inimigo.Vida = Vida - dano;
                 return dano;
                 
             }
@@ -38,14 +41,16 @@ namespace JogoPrimeiroDesafio.Classes
         }
        
 
-        public int AtaqueEspecial(Heroi alvo)
+        public override int AtaqueEspecial(Heroi inimigo)
         {
-            if (alvo.Defesa== 0)
+            if (inimigo.Defesa== 0)
             {
-                return alvo.Ataque = 0;
+                Console.Clear();
+                Console.WriteLine("Merlin congelou a arma de seus inimigo!");
+
+                return inimigo.Ataque = 0;
 
                
-
 
             }else
             {

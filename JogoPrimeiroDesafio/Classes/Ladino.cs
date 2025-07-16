@@ -18,12 +18,13 @@ namespace JogoPrimeiroDesafio.Classes
             Defesa = defesa;
         }
 
-        public override int Atacar(Heroi alvo)
+        public override int Atacar(Heroi inimigo)
         {
-            int dano = 25 - alvo.Defesa;
+            int dano = 25 - inimigo.Defesa;
 
             if (dano > 0)
             {
+                inimigo.Vida = Vida - dano;
                 return dano;
             }
             else
@@ -32,16 +33,16 @@ namespace JogoPrimeiroDesafio.Classes
             }
         }
 
-        public  int AtaqueEspecial(Heroi alvo)
+        public override int AtaqueEspecial(Heroi inimigo)
         {
-            if (alvo.Defesa <=10)
+            if (inimigo.Defesa <=5)
             {
-                Console.WriteLine($"{alvo.Nome} está vulnerável ao ataque especial!");
-                return alvo.Vida = 0; // O ataque especial causa dano fatal se a defesa for zero
+                Console.WriteLine($"{inimigo.Nome} está vulnerável ao ataque especial!");
+                return inimigo.Vida = 0; // O ataque especial causa dano fatal se a defesa for zero
             }
             else
             {
-                Console.WriteLine($"{alvo.Nome} conseguiu se defender do ataque especial!");
+                Console.WriteLine($"{inimigo.Nome} conseguiu se defender do ataque especial!");
                 return 0; // Se a defesa não for zero, o ataque especial não causa dano
             }
 
