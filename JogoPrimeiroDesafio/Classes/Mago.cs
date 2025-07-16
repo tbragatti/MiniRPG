@@ -7,53 +7,56 @@ using System.Threading.Tasks;
 
 namespace JogoPrimeiroDesafio.Classes
 {
-    public class Mago:Heroi,IAtacavel
+    public class Mago : Heroi, IAtacavel
     {
+        int totalDeGelo = 0;
+
         public Mago(string nome, int vida, int ataque, int defesa) : base(nome, vida, ataque, defesa)
         {
-           Nome= nome;
+            Nome = nome;
             Vida = vida;
             Ataque = ataque;
             Defesa = defesa;
         }
-        public override int Atacar(Heroi alvo)
-        {   int totalDeGelo = 0;
-            if (totalDeGelo == 3)
+
+        public override int Atacar(Heroi inimigo)
+        {
+            int dano = 15 - inimigo.Defesa;
+
+            if (totalDeGelo == 2)
             {
-                alvo.Defesa = 0;
-                Console.WriteLine($"{alvo.Nome} está congelado e não pode se defender!");
+                inimigo.Defesa = 0;
+                Console.WriteLine($"{inimigo.Nome} está congelado e não pode se defender! Sua defesa foi zerada!");
             }
-            int dano = 15 - alvo.Defesa;
+            else
+            {
+                totalDeGelo++;
+            }
+
 
             if (dano > 0)
             {
-                totalDeGelo++;
+                inimigo.Vida = Vida - dano;
                 return dano;
-                
             }
             else
             {
                 return 0;
             }
         }
-       
 
-        public int AtaqueEspecial(Heroi alvo)
+
+        public override int AtaqueEspecial(Heroi inimigo)
         {
-            if (alvo.Defesa== 0)
+            if (inimigo.Defesa == 0)
             {
-                return alvo.Ataque = 0;
+                Console.Clear();
+                Console.WriteLine("Merlin congelou a arma de seus inimigo!");
 
-               
-
-
-            }else
-            {
-                return 0;
+                inimigo.Ataque = 0;
             }
+
+            return 0;
         }
-
-
-
-    } 
+    }
 }

@@ -23,12 +23,17 @@ namespace JogoPrimeiroDesafio.Personagem
             Ataque = ataque;
             Defesa = defesa;
         }
-        public virtual int Atacar(Heroi alvo)
+        public Heroi()
         {
-            int dano = Ataque - alvo.Defesa;
+        }
+        public virtual int Atacar(Heroi inimigo)
+        {
+            int dano = Ataque - inimigo.Defesa;
+
 
             if (dano > 0)
             {
+                inimigo.Vida = Vida - dano;
                 return dano;
             }
             else
@@ -37,40 +42,22 @@ namespace JogoPrimeiroDesafio.Personagem
             }
         }
 
-        public void Receberdano(int dano)
-        {
-            Vida -= dano;
-            if (Vida == 0)
-            {
-                Console.WriteLine($"{Nome} foi derrotado!");
-
-            }
-           
-            
-        }
-
         public void ExibirStatus()
         {
             Console.WriteLine($"Nome: {Nome}, Vida: {Vida}, Ataque: {Ataque}, Defesa: {Defesa}");
         }
 
-        
+
+        public virtual int AtaqueEspecial(Heroi inimigo)
+        {
+            return 0;
+        }
+
+
+
+
+
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 

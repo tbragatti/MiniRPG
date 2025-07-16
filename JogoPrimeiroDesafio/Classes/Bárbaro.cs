@@ -18,12 +18,12 @@ namespace JogoPrimeiroDesafio.Classes
             Defesa = defesa;
 
         }
-        public override int Atacar(Heroi alvo)
+        public override int Atacar(Heroi inimigo)
         {
-
-            int dano = 20 - alvo.Defesa;
+            int dano = 20 - inimigo.Defesa;
             if (dano > 0)
             {
+                inimigo.Vida = Vida - dano;
                 return dano;
             }
             else
@@ -31,8 +31,9 @@ namespace JogoPrimeiroDesafio.Classes
                 return 0;
             }
         }
-        public int AtaqueEspecial(Heroi alvo)
+        public override int AtaqueEspecial(Heroi inimigo)
         {
+            // so vai ocorrer contra o mago
             if (Defesa == 0)
             {
                 Defesa = 10;

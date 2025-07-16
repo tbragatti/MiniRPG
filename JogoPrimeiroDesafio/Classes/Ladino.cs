@@ -10,20 +10,21 @@ namespace JogoPrimeiroDesafio.Classes
 {
     public class Ladino : Heroi, IAtacavel
     {
-        public Ladino(string nome, int vida, int ataque, int defesa) : base(nome, vida, ataque, defesa)
+        public Ladino() : base()
         {
-            Nome = nome;
-            Vida = vida;
-            Ataque = ataque;
-            Defesa = defesa;
+            Nome = "Barian";
+            Vida = 80;
+            Ataque = 25;
+            Defesa = 7;
         }
 
-        public override int Atacar(Heroi alvo)
+        public override int Atacar(Heroi inimigo)
         {
-            int dano = 25 - alvo.Defesa;
+            int dano = this.Ataque - inimigo.Defesa;
 
             if (dano > 0)
             {
+                inimigo.Vida = Vida - dano;
                 return dano;
             }
             else
@@ -32,16 +33,22 @@ namespace JogoPrimeiroDesafio.Classes
             }
         }
 
-        public  int AtaqueEspecial(Heroi alvo)
+        public override int AtaqueEspecial(Heroi inimigo)
         {
-            if (alvo.Defesa <=10)
+            int defesaMinima = 5;
+
+            if (inimigo.Defesa <= defesaMinima)
             {
-                Console.WriteLine($"{alvo.Nome} está vulnerável ao ataque especial!");
-                return alvo.Vida = 0; // O ataque especial causa dano fatal se a defesa for zero
+                Console.WriteLine($"{inimigo.Nome} está vulnerável ao ataque especial!");
+
+                int vidaInimigoTemp = inimigo.Vida;
+                 inimigo.Vida = 0; // O ataque especial causa dano fatal se a defesa for zero
+
+                return vidaInimigoTemp;
             }
             else
             {
-                Console.WriteLine($"{alvo.Nome} conseguiu se defender do ataque especial!");
+                Console.WriteLine($"{inimigo.Nome} conseguiu se defender do ataque especial!");
                 return 0; // Se a defesa não for zero, o ataque especial não causa dano
             }
 

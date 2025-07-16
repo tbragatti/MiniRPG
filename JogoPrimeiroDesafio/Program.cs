@@ -16,16 +16,96 @@ namespace Jogo
 {
     internal class Program
     {
-        
+
         static void Main(string[] args)
-        { 
-            
+        {
+            Heroi HeroiEscolhido = null;
+            Heroi InimigoEscolhido = null;
 
-
-
-        Heroi Ladino = new Ladino("Ladino", 80, 25, 7);
-            Heroi Mago = new Mago("Merlin", 55, 15, 5); 
+            Heroi Ladino = new Ladino();
+            Heroi Mago = new Mago("Merlin", 55, 15, 5);
             Heroi Barbaro = new Bárbaro("Tristan", 100, 25, 10);
+            void ExibirMenu()
+            {
+                Console.Clear();
+
+                ExibirBoasVindas();
+
+                int escolha = 0;
+
+                while (escolha != 4)
+                {
+                    Console.WriteLine("1 - Ver Heróis");
+                    Console.WriteLine("2 - Escolher Herói");
+                    Console.WriteLine("3 - Escolher Inimigo");
+                    Console.WriteLine("4 - Batalhar");
+
+                    Console.WriteLine("Digite sua escolha:");
+
+                    string line = "Heroi:";
+
+                    if (HeroiEscolhido != null)
+                    {
+                        line += HeroiEscolhido.Nome;
+                    }
+                    else
+                    {
+                        line += "sem heroi";
+                    }
+
+                    Console.WriteLine(line);
+                    string opcaoEscolhida = Console.ReadLine();
+
+                    if (HeroiEscolhido == null || InimigoEscolhido == null)
+                    {
+                        int opcaoEscolhidaNum = int.Parse(opcaoEscolhida);
+                        if (opcaoEscolhidaNum != 4)
+                        {
+                            escolha = opcaoEscolhidaNum;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Você precisa escolher um herói e um inimigo antes de batalhar.");
+                            Console.ReadKey();
+                        }
+                    }
+                    else
+                    {
+                        escolha = int.Parse(opcaoEscolhida);
+                    }
+
+                    bool escolherHeroi;
+
+                    switch (escolha)
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            ExibirHerois();
+                            break;
+                        case 2:
+                            escolherHeroi = true;
+                            HeroiEscolhido = EscolherPersonagem(escolherHeroi);
+                            break;
+                        case 3:
+                            escolherHeroi = false;
+                            InimigoEscolhido = EscolherPersonagem(escolherHeroi);
+                            break;
+                    }
+                }
+
+                Batalhar(HeroiEscolhido, InimigoEscolhido);
+
+
+
+
+
+
+
+
+
+            }
+
             void ExibirBoasVindas()
             {
                 Console.WriteLine(@"
@@ -35,6 +115,7 @@ namespace Jogo
 
 
             }
+
             void ExibirHerois()
             {
                 Console.Clear();
@@ -44,47 +125,10 @@ namespace Jogo
                 Console.WriteLine($"3 - {Barbaro.Nome} - Vida: {Barbaro.Vida}, Ataque: {Barbaro.Ataque}, Defesa: {Barbaro.Defesa}");
                 Console.WriteLine("Pressione qualquer tecla para voltar ao menu.");
                 Console.ReadKey();
-                ExibirMenu();
             }
 
-            Heroi EscolherHeroi()
-            {
-                Console.Clear();
 
-
-
-
-                Console.WriteLine("1 - Ladino");
-                Console.WriteLine("2 - Mago");
-                Console.WriteLine("3 - Bárbaro");
-
-                Console.WriteLine("Escolha seu Herói:");
-
-                string opcaoEscolhida = Console.ReadLine();
-                int opcaoEscolhidaNum = int.Parse(opcaoEscolhida);
-                switch (opcaoEscolhidaNum)
-                {
-                    case 1: return Ladino;
-                    case 2: return Mago;
-                    case 3: return Barbaro;
-                    default:
-                        Console.WriteLine("Opção inválida! Tente novamente.");
-                        return EscolherHeroi();
-                }
-
-
-
-
-
-
-
-
-
-
-
-
-            }
-            Heroi EscolherInimigo()
+            Heroi EscolherPersonagem(bool escolherHeroi)
             {
                 Console.Clear();
 
@@ -92,107 +136,131 @@ namespace Jogo
                 Console.WriteLine("2 - Mago");
                 Console.WriteLine("3 - Bárbaro");
 
-                Console.WriteLine("Escolha seu Inimigo:");
-                
+                if (escolherHeroi)
+                    Console.WriteLine("Escolha seu Herói:");
+                else
+                {
+                    Console.WriteLine("Escolha o Inimigo:");
+                }
+
                 string opcaoEscolhida = Console.ReadLine();
                 int opcaoEscolhidaNum = int.Parse(opcaoEscolhida);
                 switch (opcaoEscolhidaNum)
                 {
-                    case 1: return Ladino;
-                    case 2: return Mago;
-                    case 3: return Barbaro;
+                    case 1:
+                        return Ladino;
+
+                    case 2:
+                        return (Mago);
+
+                    case 3:
+                        return (Barbaro);
                     default:
                         Console.WriteLine("Opção inválida! Tente novamente.");
-                        return EscolherInimigo();
+                        return null;
                 }
-                
+
             }
 
 
-
-            void Batalhar()
+            void Batalhar(Heroi heroi, Heroi inimigo)
             {
+                Console.Clear();
+                Console.WriteLine($"Iniciando a batalha entre {heroi.Nome} e {inimigo.Nome}");
 
+                Console.WriteLine($"A batalha entre {heroi.Nome} e {inimigo.Nome} começa agora! Clique enter para selecionar seu ataque! ");
 
-                EscolherHeroi();
-                EscolherInimigo();
+                int turnNumber = 0;
 
-                   Heroi heroi= EscolherHeroi();
-                     Heroi inimigo = EscolherInimigo();
                 while (heroi.Vida > 0 && inimigo.Vida > 0)
                 {
+                    OpcoesBatalha(heroi, inimigo);
+
+                    Console.WriteLine($"{inimigo.Nome} esta pronto para atacar");
+                    Console.ReadKey();
                     Console.Clear();
 
-                    Console.WriteLine($"Você escolheu: {heroi.Nome}");
-                    Console.WriteLine($"Inimigo escolhido: {inimigo.Nome}");
+                    if (turnNumber % 2 == 0)
+                    {
+                        inimigo.Atacar(heroi);
+                        Console.WriteLine($"{inimigo.Nome} causou {inimigo.Atacar(heroi)} de dano ");
+                    }
+                    else
+                    {
+                        inimigo.AtaqueEspecial(heroi);
+                        Console.WriteLine($"{inimigo.Nome} usou seu ataque especial causando {inimigo.AtaqueEspecial(heroi)} de dano ");
+                    }
 
-                    Console.WriteLine("Escolha uma ação:");
-                    Console.WriteLine("1 - Atacar");
-                    Console.WriteLine("2 - Usar Ataque Especial");
-                    Console.WriteLine("3 - Ver Status");
-                   
+                    Console.Clear();
+                    Console.WriteLine($"{heroi.Nome} esta com {heroi.Vida} de vida");
+                    Console.ReadKey();
+                    Console.Clear();
 
-
+                    turnNumber++;
                 }
 
+                if (heroi.Vida <= 0)
+                {
+                    Console.WriteLine("Você venceu!");
+                    Console.ReadKey();
+                    ExibirMenu();
+                }
+                else if (inimigo.Vida <= 0)
+                {
 
-
-
-
+                    Console.WriteLine("Você perdeu!");
+                    Console.ReadKey();
+                    ExibirMenu();
+                }
 
 
             }
 
-
-            
-
-
-
-            void ExibirMenu()
+            void OpcoesBatalha(Heroi heroi, Heroi inimigo)
             {
+
+
                 Console.Clear();
+                Console.WriteLine("\nEscolha sua ação!!");
 
-                ExibirBoasVindas();
-
-
-                Console.WriteLine("1 - Ver Heróis");
-                Console.WriteLine("2 - Batalhar");
-
-                Console.WriteLine("Digite sua escolha:");
+                Console.WriteLine("1. Atacar");
+                Console.WriteLine("2. Especial");
 
                 string opcaoEscolhida = Console.ReadLine();
-
                 int opcaoEscolhidaNum = int.Parse(opcaoEscolhida);
-
 
                 switch (opcaoEscolhidaNum)
                 {
 
-                    case 1:ExibirHerois(); break;
-                    case 2:Batalhar(); ; break;
+                    case 1:
+                        heroi.Atacar(inimigo);
+                        Console.WriteLine($"Você causou {heroi.Atacar(inimigo)} de dano");
+
+                        Console.WriteLine($"{inimigo.Nome} esta com {inimigo.Vida} de vida!");
+
+                        break;
+
+                    case 2:
+                        heroi.AtaqueEspecial(inimigo);
+                        Console.WriteLine(heroi.AtaqueEspecial(inimigo));
+                        Console.WriteLine($"{inimigo.Nome} esta com {inimigo.Vida} de vida!");
+                        break;
 
                     default:
-                        Console.WriteLine("Opção inválida! Tente novamente.");
-                        ExibirMenu();
+                        Console.WriteLine("Escolha inválida!");
                         break;
 
                 }
 
 
-                
-            
 
-      
-                
-                
-            
 
-            
+
+
             }
+
             ExibirMenu();
 
-
-            
         }
     }
 }

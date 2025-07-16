@@ -10,9 +10,12 @@ namespace JogoPrimeiroDesafio
     public interface IAtacavel
     {
 
-        int Atacar(Heroi alvo);
+       int Atacar(Heroi alvo);
 
-        int AtaqueEspecial(Heroi alvo); 
+
+
+       int AtaqueEspecial(Heroi alvo);
+        
 
     }
 }
