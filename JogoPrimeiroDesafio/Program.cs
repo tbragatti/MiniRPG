@@ -101,8 +101,18 @@ namespace Jogo
 
 
 
+                    case 2:
+                        HeroisEscolhidos.Add(Mago);
+                        ExibirMenu(); break;
 
+                    case 3:
+                        HeroisEscolhidos.Add(Barbaro);
+                        ExibirMenu(); break;
+                    default:
 
+                        Console.WriteLine("Opção inválida! Tente novamente.");
+                        ExibirMenu();
+                        break;
 
             }
 
@@ -156,6 +166,7 @@ namespace Jogo
                     case 3:
                         return (Barbaro);
                     default:
+
                         Console.WriteLine("Opção inválida! Tente novamente.");
                         return null;
                 }
@@ -264,4 +275,4 @@ namespace Jogo
         }
     }
 }
-
+  
